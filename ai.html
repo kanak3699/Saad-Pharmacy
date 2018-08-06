@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Saad Pharmacy</title>
+	<!--
+	<link rel="stylesheet" href="login.css">
+	<!-- include the site stylesheet -->
+	<link href="css/css.css" rel="stylesheet">
+	<!-- include the site stylesheet -->
+	
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/plugins.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/icon-fonts.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/datepiker.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/style.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/colors.css">
+	<!-- include the site stylesheet -->
+	<link rel="stylesheet" href="css/responsive.css">
+<style type="text/css">.fancybox-margin{margin-right:17px;}
+</style>
+</head>
+
+	<!-- main container of all the page elements -->
+	<div role="toolbar" id="wrapper">
+		<!-- header of the page -->
+		<header id="header">
+			<!-- header area of the page
+			<div class="header-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<ul class="list-unstyled align-left">
+								<li><i class="fa fa-clock-o"></i> <time datetime="2016-02-03 20:10">Mon - Fri at 10:00 AM to 7:00 PM</time></li>
+								<li><i class="fa fa-envelope"></i> <a href="mailto:saadpharmacy@gmail.com">saadpharmacy@gmail.com</a></li>
+							</ul>
+							<ul class="list-unstyled align-right">
+								<li><i class="fa fa-map-marker"></i> <address>8737 Britton Ave, Queens, NY 11373</address></li>
+								<li><i class="fa fa-phone"></i> <a href="tel:+00123789456">( +1 ) 718 - 476 - 9100</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- header holder of the page -->
+			<div class="header-holder">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							
+							<a href="#" class="nav-opener"><i class="fa fa-bars"></i></a>
+							<!-- nav of the page -->
+							<nav id="nav">
+								<ul class="list-unstyled">
+									<li class="active drop">
+										<a href="#"></i></a>
+									
+									</li>
+									
+									<!-- LINKS TO CONNECT TO OTHER WEBPAGES -->
+									<li><a href="index.html">home</a></li>
+									<li><a href="about.html">about us</a></li>
+									<li><a href="contact.html">Contact Us</a></li>
+									<li><a href="products.html">Products</a></li>
+									
+									<li><a href="login.html">Login</a></li>
+									<li><a href="ai.html">virtual assistant</a></li>
+									
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+		var accessToken = "9a233c427eb749a8a6bcf93668a58a81";
+		var baseUrl = "https://api.api.ai/v1/";
+
+		$(document).ready(function() {
+			$("#input").keypress(function(event) {
+				if (event.which == 13) {
+					event.preventDefault();
+					send();
+				}
+			});
+			$("#rec").click(function(event) {
+				switchRecognition();
+			});
+		});
+
+		var recognition;
+
+		function startRecognition() {
+			recognition = new webkitSpeechRecognition();
+			recognition.onstart = function(event) {
+				updateRec();
+			};
+			recognition.onresult = function(event) {
+				var text = "";
+			    for (var i = event.resultIndex; i < event.results.length; ++i) {
+			    	text += event.results[i][0].transcript;
+			    }
+			    setInput(text);
+				stopRecognition();
+			};
+			recognition.onend = function() {
+				stopRecognition();
+			};
+			recognition.lang = "en-US";
+			recognition.start();
+		}
+	
+		function stopRecognition() {
+			if (recognition) {
+				recognition.stop();
+				recognition = null;
+			}
+			updateRec();
+		}
+
+		function switchRecognition() {
+			if (recognition) {
+				stopRecognition();
+			} else {
+				startRecognition();
+			}
+		}
+
+		function setInput(text) {
+			$("#input").val(text);
+			send();
+		}
+
+		function updateRec() {
+			$("#rec").text(recognition ? "Stop" : "Speak");
+		}
+
+		function send() {
+			var text = $("#input").val();
+			setResponse("You: " + text);
+			$.ajax({
+				type: "POST",
+				url: baseUrl + "query?v=20150910",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				headers: {
+					"Authorization": "Bearer " + accessToken
+				},
+				data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
+
+				success: function(data) {
+					setResponse("Veronica: " + data.result.fulfillment.speech);
+				//	setResponse(JSON.stringify(data, undefined, 2));
+				},
+				error: function() {
+					setResponse("Internal Server Error");
+				}
+			});
+			setResponse("Thinking...");
+		}
+
+		function setResponse(val) {
+			$("#response").text($("#response").text(val) + val + "\r\n");
+		}
+
+	</script>
+		
+<body>
+
+<div class="img-holder">
+							<img src="images/ai.jpg" alt="image description" class="img-responsive">
+						</div>
+	<div style="width:200px; margin:0 auto;">
+		<br>
+		<label> Ask Veronica: </label> <input id="input" type="text" placeholder="Ask Veronica"> </textarea>
+		<br>
+		<br>
+		<label> Veronica's Response: </label>
+		 <textarea id="response" cols="35" rows="12" placeholder="Veronica's Response"></textarea>
+	</div>
+	
+</body>	
+</html>
