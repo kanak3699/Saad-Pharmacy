@@ -1,0 +1,24 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	background: url(img05.jpg);
+	background-size: cover;
+	font-family: sans-serif;
+}
+textarea{
+    margin-left: auto;
+    margin-right: auto;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+}
