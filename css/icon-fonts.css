@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?j8cmop');
+  src:  url('../fonts/icomoon.eot?j8cmop#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?j8cmop') format('truetype'),
+    url('../fonts/icomoon.woff?j8cmop') format('woff'),
+    url('../fonts/icomoon.svg?j8cmop#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-alarm:before { content: "\e917"; }
+.icon-hours:before { content: "\e900"; }
+.icon-plus-circle:before { content: "\e901"; }
+.icon-ambulance:before { content: "\e902"; }
+.icon-baby:before { content: "\e903"; }
+.icon-time:before { content: "\e904"; }
+.icon-blood-test:before { content: "\e905"; }
+.icon-doctor:before { content: "\e906"; }
+.icon-hospital-bed:before { content: "\e907"; }
+.icon-home:before { content: "\e908"; }
+.icon-lab:before { content: "\e909"; }
+.icon-dna:before { content: "\e90a"; }
+.icon-left-quote:before { content: "\e90b"; }
+.icon-notes:before { content: "\e90c"; }
+.icon-minus:before { content: "\e90d"; }
+.icon-picture:before { content: "\e90e"; }
+.icon-pills:before { content: "\e90f"; }
+.icon-play-button:before { content: "\e910"; }
+.icon-right-quote:before { content: "\e911"; }
+.icon-check:before { content: "\e912"; }
+.icon-chat:before { content: "\e913"; }
+.icon-stethoscope:before { content: "\e914"; }
+.icon-tooth:before { content: "\e915"; }
+.icon-heartbeat:before { content: "\e916"; }
+.icon-plus:before { content: "\ea0a"; }
